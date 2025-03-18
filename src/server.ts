@@ -1,14 +1,16 @@
-// function calculaIdadeUsuario() {
+import fastify from 'fastify';
+import { knex } from './database';
 
-//     const prompt = require('prompt-sync')();
-//     let ano = new Number(prompt("Digite seu ano de nascimento: "))
+const app = fastify()
 
-//     const currentYear  = new Date().getFullYear()
+app.get('/hello', async () => {
+    const tables = knex('sqlite_schema').select('*')
 
-//     let resu = currentYear - ano
+    return tables
+})
 
-//     console.log(`${resu}`)
-
-// }
-
-// calculaIdadeUsuario()
+app.listen({
+    port: 3333,
+}).then( () => {
+    console.log('HTTP server running!')
+})
